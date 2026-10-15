@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+.DS_Store
+uploads/
+
+# Foto asli di root (versi teroptimasi ada di public/images)
+/*.jpeg
+/*.JPG
+/*.jpg
+/*.png

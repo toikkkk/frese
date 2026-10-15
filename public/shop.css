@@ -1,0 +1,333 @@
+/* ========== Keranjang, beli langsung, pembayaran QRIS, galeri, animasi ========== */
+.header-actions{display:flex;align-items:center;gap:10px}
+.cart-trigger{position:relative;width:44px;height:44px;display:grid;place-items:center;border:1px solid var(--forest);background:transparent;color:var(--forest);transition:background .2s,color .2s}
+.cart-trigger:hover{background:var(--forest);color:#fff}
+.cart-trigger__badge{position:absolute;top:-8px;right:-8px;min-width:19px;height:19px;padding:0 5px;display:grid;place-items:center;border-radius:99px;background:var(--coffee);color:#fff;font-size:10px;font-weight:700;line-height:1}
+.cart-trigger__badge[hidden]{display:none}
+@media(max-width:620px){.cart-trigger{width:38px;height:38px}.header-actions{gap:8px}}
+.button--outline{border:1px solid rgba(46,125,106,.5);background:transparent;color:var(--forest)}
+.button--outline:hover{background:var(--mint)}
+.button--ghost{background:transparent;color:var(--muted);font-weight:600}
+.button--ghost:hover{color:var(--forest)}
+.button:disabled{opacity:.65;cursor:wait;transform:none}
+.product-card__actions{display:grid;grid-template-columns:1fr;gap:8px;margin-top:14px}
+.product-card__actions .button{min-height:42px;padding:0 12px;gap:10px;font-size:10px;white-space:nowrap}
+.product-card__actions .button span{font-size:15px}
+@media(max-width:900px){.product-card__actions{grid-template-columns:1fr 1fr}}
+@media(max-width:400px){.product-card__actions{grid-template-columns:1fr}}
+
+.cart-bar:not([hidden]){animation:rise-in .45s cubic-bezier(.2,.8,.3,1)}
+@keyframes rise-in{from{opacity:0;transform:translateY(30px)}}
+@keyframes fade-in{from{opacity:0}}
+@keyframes dialog-in{from{opacity:0;transform:translateY(18px) scale(.97)}}
+
+/* Dialog keranjang & checkout */
+.checkout[open]{animation:dialog-in .32s cubic-bezier(.2,.8,.3,1)}
+.checkout[open]::backdrop{animation:fade-in .3s}
+.checkout{border-radius:6px;overflow:hidden}
+.checkout__shell{border-radius:6px}
+.checkout--cart{width:min(100% - 24px,470px)}
+.checkout__head{display:flex;align-items:center;justify-content:space-between;margin:0 0 20px;padding-right:40px}
+.checkout .checkout__head h2{margin:0;font-size:30px;letter-spacing:-.04em;line-height:1.1;color:var(--ink)}
+.checkout__foot{display:grid;gap:10px;margin-top:20px;padding-top:18px;border-top:1px solid var(--line)}
+.checkout__foot[hidden]{display:none}
+.checkout__foot .checkout__total{margin:0;padding:0;border:0;align-items:baseline;font-family:var(--serif);font-size:17px;font-weight:600}
+.checkout__foot .checkout__total strong{color:var(--forest);font-size:22px;letter-spacing:-.02em}
+.checkout__cta{width:100%;min-height:50px;justify-content:center}
+.cart-list{display:grid;border-top:1px solid var(--line)}
+.cart-item{display:grid;grid-template-columns:1fr auto;grid-template-areas:"info remove" "qty subtotal";align-items:center;gap:10px 12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.cart-item__info{grid-area:info;display:grid;gap:3px}
+.cart-item__info strong{font-family:var(--serif);font-size:19px;font-weight:500}
+.cart-item__info span{color:var(--muted);font-size:12px}
+.cart-item .quantity{grid-area:qty}
+.cart-item__subtotal{grid-area:subtotal;font-size:14px}
+.cart-item__remove{grid-area:remove;width:30px;height:30px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--muted);font-size:18px;line-height:1}
+.cart-item__remove:hover{border-color:#b65f37;color:#b65f37}
+.cart-empty{padding:28px 0 6px;text-align:center;color:var(--muted)}
+.cart-empty[hidden]{display:none}
+.cart-empty span{display:block;color:var(--sage);font-size:42px}
+.cart-empty p{margin:6px 0 18px;font-size:13px}
+.cart-empty .button{padding:0 26px}
+.quantity--pill{padding:4px;border:1px solid var(--line);border-radius:99px;background:#fff;gap:4px}
+.quantity--pill .quantity__button{border:0;background:var(--mint)}
+.quantity--pill .quantity__value{min-width:30px}
+.cart-item .quantity__button,.ck-item .quantity__button{width:34px;height:34px}
+.ck-item{padding:0 0 14px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.ck-item__info{display:grid;gap:3px;margin-bottom:12px}
+.ck-item__info strong{font-family:var(--serif);font-size:21px;font-weight:500}
+.ck-item__info span{color:var(--muted);font-size:13px}
+.ck-item__row{display:flex;align-items:center;justify-content:space-between}
+.ck-item__label{color:#42544a;font-size:12px;font-weight:600}
+.ck-label{margin:6px 0 8px;color:#42544a;font-size:12px;font-weight:600}
+.ck-label--spaced{margin-top:20px}
+.order-form .ck-field-label{margin-top:2px;font-size:12px}
+.order-form .pay-option{display:block;margin:0;position:relative;cursor:pointer}
+.order-form .pay-option input{position:absolute;opacity:0;width:1px;height:1px;padding:0;border:0}
+.pay-option__box{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"icon title" "icon sub";align-items:center;column-gap:12px;padding:12px 14px;border:1.5px solid var(--forest);background:var(--mint);color:var(--forest-deep);border-radius:4px}
+.pay-option__box svg{grid-area:icon}
+.pay-option__box strong{grid-area:title;font-size:14px;letter-spacing:.04em}
+.pay-option__box small{grid-area:sub;color:#47695c;font-size:11px;font-weight:400}
+.pay-option input:focus-visible+.pay-option__box{outline:3px solid #b65f37;outline-offset:3px}
+.pay-wallets{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pay-wallets span{padding:7px 11px;border:1px solid var(--line);border-radius:99px;background:#fff;color:#52645a;font-size:11px;font-weight:600}
+.order-form input{border-radius:4px}
+.pay__lead{margin:0 0 14px;color:var(--muted);font-size:13px;line-height:1.65}
+.pay__amount{display:grid;gap:4px;justify-items:center;padding:14px;margin-bottom:16px;background:var(--mint);border-radius:4px;text-align:center}
+.pay__amount span{color:#47695c;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase}
+.pay__amount strong{color:var(--forest-deep);font-family:var(--serif);font-size:36px;font-weight:600;letter-spacing:-.04em;line-height:1.1}
+.pay__copy{border:0;background:transparent;color:var(--forest);font-size:12px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.pay__qr{display:grid;justify-items:center;gap:8px}
+.pay__qr-frame{width:min(100%,290px);min-height:120px;padding:12px;border:1px solid var(--line);border-radius:6px;background:#fff;box-shadow:0 12px 34px rgba(35,71,58,.1)}
+.pay__qr-frame canvas{display:block;width:100%;height:auto}
+.pay__merchant{margin:0;color:var(--muted);font-size:11px;letter-spacing:.06em}
+.pay__tools{display:grid;justify-items:center;gap:10px;margin:12px 0 4px}
+.pay__save{padding:10px 16px;border:1px solid rgba(46,125,106,.5);border-radius:99px;color:var(--forest);font-size:12px;font-weight:700}
+.pay__save[hidden]{display:none}
+.pay__save:hover{background:var(--mint)}
+.pay__fallback{width:100%;color:var(--muted);font-size:12px;text-align:center}
+.pay__fallback summary{cursor:pointer;color:var(--forest);font-weight:600}
+.pay__fallback img{width:min(100%,300px);margin:10px auto 0;border:1px solid var(--line)}
+.pay__steps{margin:14px 0 0;padding-left:20px;color:#52645a;font-size:12px;line-height:1.7}
+.ck-view[hidden]{display:none}
+.ck-done{display:grid;justify-items:center;gap:10px;padding:14px 0 0;text-align:center}
+.ck-done[hidden]{display:none}
+.ck-done__check{color:var(--forest)}
+.ck-done__check circle{stroke-dasharray:145;stroke-dashoffset:145;animation:draw .7s .1s ease forwards}
+.ck-done__check path{stroke-dasharray:42;stroke-dashoffset:42;animation:draw .45s .65s ease forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.ck-done h2{margin:0;font-size:34px;letter-spacing:-.04em;color:var(--ink)}
+.ck-done p{max-width:36ch;margin:0;color:var(--muted);font-size:13px;line-height:1.7}
+.ck-done .ck-done__id{padding:7px 12px;border-radius:99px;background:var(--mint);color:var(--forest-deep);font-size:12px;font-weight:700;letter-spacing:.06em}
+.ck-done .ck-done__id[hidden]{display:none}
+.ck-done .button{width:100%;margin-top:6px}
+.checkout .order-form__status[hidden]{display:none}
+@media(max-width:620px){.checkout .checkout__head h2{font-size:27px}.pay__amount strong{font-size:32px}}
+
+/* Galeri */
+.gallery{padding-top:0;padding-bottom:112px}
+.gallery__grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:28px;align-items:start}
+.gallery__item{margin:0}
+.gallery__item--tall{grid-column:1/6;grid-row:1/3}
+.gallery__item--wide{grid-column:6/13;grid-row:1}
+.gallery__frame{position:relative;overflow:hidden;background:var(--mint);border-radius:3px;box-shadow:var(--shadow)}
+.gallery__frame img{width:100%;height:100%;object-fit:cover}
+.gallery__item--tall .gallery__frame{aspect-ratio:3/4}
+.gallery__item--wide .gallery__frame{aspect-ratio:1300/1000}
+.gallery figcaption{margin-top:12px;color:var(--muted);font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}
+.gallery figcaption span{margin-right:9px;color:var(--forest);font-family:var(--serif);font-size:13px}
+.gallery__notes{grid-column:6/13;grid-row:2;display:grid;grid-template-columns:repeat(3,1fr);margin:0;padding:0;list-style:none;border-top:1px solid var(--line)}
+.gallery__notes li{display:grid;gap:6px;padding:18px 18px 0 0}
+.gallery__notes b{color:var(--forest);font-family:var(--serif);font-size:18px;font-weight:500}
+.gallery__notes span{color:var(--muted);font-size:11px;line-height:1.65}
+@media(max-width:900px){.gallery{padding-bottom:84px}.gallery__grid{gap:20px}.gallery__item--tall{grid-column:1/-1;grid-row:auto}.gallery__item--tall .gallery__frame{aspect-ratio:4/4.6}.gallery__item--wide{grid-column:1/-1;grid-row:auto}.gallery__notes{grid-column:1/-1;grid-row:auto}}
+@media(max-width:620px){.gallery{padding-bottom:64px}.gallery__notes{grid-template-columns:1fr}.gallery__notes li{padding:14px 0;border-bottom:1px solid var(--line)}.gallery__notes span{font-size:12px}.gallery figcaption{font-size:9px}}
+
+/* Ticker berjalan */
+.ticker.is-marquee{display:block;padding:0;overflow:hidden;white-space:nowrap}
+.ticker__track{display:flex;align-items:center;width:max-content;min-height:54px;will-change:transform}
+.ticker__group{display:flex;flex:none;align-items:center;gap:30px;padding-right:30px}
+@media(max-width:620px){.ticker.is-marquee{min-height:48px}.ticker__track{min-height:48px}.ticker__group{gap:22px;padding-right:22px}.ticker .ticker__group span:last-child{display:inline}}
+
+/* Elemen bantu animasi */
+.fly-dot{position:fixed;z-index:200;left:0;top:0;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--forest);color:#fff;font-size:14px;line-height:1;pointer-events:none;box-shadow:0 6px 16px rgba(35,71,58,.3)}
+.anim .product-card__photo img{transition:none}
+.anim .product-card:hover .product-card__photo img{transform:none}
+.char{display:inline-block;will-change:transform}
+
+/* Preloader logo */
+.preloader{display:none}
+html.anim .preloader{position:fixed;inset:0;z-index:100;display:grid;place-items:center;overflow:hidden;background:var(--cream)}
+html.is-loading{overflow:hidden}
+.preloader__glow{position:absolute;width:min(92vw,640px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(220,237,225,.95) 0%,rgba(220,237,225,0) 68%)}
+.preloader__logo{position:relative;width:min(72vw,430px);aspect-ratio:806/482}
+.preloader__logo img{position:absolute;height:auto;display:block;will-change:transform}
+.preloader__spark{position:absolute;color:var(--forest);line-height:1}
+.preloader__spark--a{left:-7%;top:6%;font-size:26px}
+.preloader__spark--b{right:-5%;bottom:6%;font-size:22px;color:var(--coffee)}
+.preloader__spark--c{left:8%;bottom:-12%;font-size:18px;color:var(--sage)}
+.preloader__bar{position:absolute;left:50%;bottom:30%;width:min(46vw,170px);height:2px;transform:translateX(-50%);background:rgba(46,125,106,.14);overflow:hidden;border-radius:2px}
+.preloader__bar span{display:block;width:100%;height:100%;background:var(--forest);transform:scaleX(0);transform-origin:left}
+.preloader__skip{position:absolute;right:22px;bottom:22px;padding:8px 4px;border:0;border-bottom:1px solid currentColor;background:transparent;color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase}
+.preloader__skip:hover{color:var(--forest)}
+
+/* Foto hero: kemasan FRESE */
+.poster__art img{width:auto;max-width:100%;height:clamp(300px,50vh,420px);aspect-ratio:1100/1005;object-fit:cover;border-radius:6px;filter:none;box-shadow:0 22px 50px rgba(35,71,58,.18)}
+@media(max-width:620px){.poster__art img{height:auto;width:100%;max-width:340px;max-height:none}}
+
+
+/* Logo FRESE (SVG) di header, hero, dan footer */
+.brand--logo img{width:auto;height:46px;border-radius:0;object-fit:contain}
+.brand--footer.brand--logo img{width:auto;height:44px}
+.poster__signature img{width:auto;height:38px;border-radius:0}
+@media(max-width:620px){.brand--logo img{width:auto;height:38px}.poster__signature img{height:32px}}
+
+/* Unggah bukti pembayaran */
+.proof{margin-top:18px}
+.proof .ck-label{margin-top:0}
+.proof__drop{display:grid;place-items:center;min-height:120px;padding:14px;border:1.5px dashed rgba(46,125,106,.55);border-radius:6px;background:var(--mint);color:var(--forest-deep);text-align:center;cursor:pointer;transition:background .2s}
+.proof__drop:hover{background:#d2e6d9}
+.proof__drop:focus-within{outline:3px solid #b65f37;outline-offset:3px}
+.proof__drop input{position:absolute;opacity:0;width:1px;height:1px}
+.proof__prompt{display:grid;justify-items:center;gap:4px}
+.proof__prompt[hidden]{display:none}
+.proof__prompt strong{font-size:13px}
+.proof__prompt small{color:#47695c;font-size:11px}
+.proof__drop img{max-width:100%;max-height:260px;border-radius:4px;object-fit:contain;box-shadow:0 6px 18px rgba(35,71,58,.15)}
+.proof__drop img[hidden]{display:none}
+.proof__change{margin-top:8px;border:0;background:transparent;color:var(--forest);font-size:12px;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+.proof__change[hidden]{display:none}
+#wa-share[hidden]{display:none}
+
+/* Section bertumpuk (overlap) saat scroll: Tentang -> Cara memesan -> Penutup */
+.stack-panel{position:relative}
+.closing-cta{display:flex;flex-direction:column;align-items:center;justify-content:center}
+@media(min-width:901px) and (min-height:700px){
+  .ritual,.stack-panel,.closing-cta{min-height:100vh;min-height:100svh}
+  .ritual{position:sticky;top:0;z-index:1;align-content:center}
+  .stack-panel{position:sticky;top:0;z-index:2;display:flex;flex-direction:column;justify-content:center;background:#eef3e8;border-radius:34px 34px 0 0;box-shadow:0 -24px 60px rgba(24,57,43,.22)}
+  .stack-panel .howto{width:100%;padding-top:0;padding-bottom:0}
+  .closing-cta{position:relative;z-index:3;border-radius:34px 34px 0 0;box-shadow:0 -24px 60px rgba(40,26,15,.3)}
+  .site-footer{position:relative;z-index:4;background:var(--cream)}
+}
+
+/* Perbaikan tumpang tindih di HP */
+@media(max-width:620px){
+  .hero--poster{grid-template-columns:minmax(0,1fr);grid-template-rows:28px auto auto auto 44px;grid-template-areas:"meta" "copy" "art" "title" "signature"}
+  .poster__side,.poster__art-note,.poster__cta{display:none}
+  .poster__copy{padding:16px 0 14px}
+  .poster__art{min-height:0;margin:0 0 4px}
+  .poster__art img{width:100%;max-width:100%}
+  .poster__title{padding:12px 0 8px}
+  .poster__signature{justify-content:flex-start}
+}
+
+/* Galeri: dua foto utuh tanpa potongan */
+.gallery__pair{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.gallery__item--wide .gallery__pair .gallery__frame{aspect-ratio:3/4}
+@media(max-width:620px){.gallery__pair{gap:10px}}
+
+/* Galeri: foto kotak utuh, sesuai rasio aslinya */
+.gallery__item--wide .gallery__frame{aspect-ratio:1300/1188}
+
+/* Slider produk di section Tentang */
+.ritual .slider{position:relative;z-index:1;width:min(100%,360px);justify-self:center;display:grid;gap:16px}
+.slider__stage{position:relative;height:clamp(260px,44vh,440px);aspect-ratio:3/4;max-width:100%;justify-self:center}
+.slide img{width:100%;height:100%;object-fit:cover;border-radius:4px;box-shadow:0 18px 44px rgba(10,35,26,.35)}
+.slider__details{display:grid}
+.detail{grid-area:1/1;display:grid;gap:6px;align-content:start;opacity:0;transform:translateY(8px);transition:opacity .45s ease,transform .45s ease;pointer-events:none}
+.detail.is-active{opacity:1;transform:none;pointer-events:auto}
+.detail__tag{color:#bcd9c4;font-size:9px;font-weight:700;letter-spacing:.14em}
+.detail h3{margin:0;color:#fff;font-family:var(--serif);font-size:28px;font-weight:500;letter-spacing:-.03em}
+.detail p{margin:0;color:#d6e4d8;font-size:12px;line-height:1.7}
+.detail__buy{justify-self:start;margin-top:4px;padding:0 0 6px;border:0;border-bottom:1px solid #a7c4b0;background:transparent;color:#f4f5eb;font-size:12px;font-weight:700}
+.detail__buy:hover{color:#fff;border-color:#fff}
+.slider__nav{display:flex;align-items:center;gap:14px}
+.slider__arrow{width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(220,237,225,.55);border-radius:50%;background:transparent;color:#f4f5eb;font-size:17px;line-height:1;transition:background .2s,color .2s,transform .2s}
+.slider__arrow:hover{background:#f4f5eb;color:var(--forest-deep);transform:scale(1.06)}
+.slider__count{color:#cfe3d4;font-size:12px;letter-spacing:.1em}
+.slider__count b{color:#fff;font-size:15px}
+.ritual__stamp{top:22px;bottom:auto}
+@media(min-width:901px) and (min-height:700px){.ritual{padding-top:56px;padding-bottom:56px}}
+@media(max-width:900px){.ritual .slider{width:min(100%,340px);justify-self:start;margin-top:8px}.slider__stage{height:auto;width:min(82%,300px);margin-right:auto}}
+
+/* Teks hero lebih besar dan mudah dibaca */
+.poster__copy{max-width:270px}
+.poster__kicker,.poster__title>p{font-size:10px;letter-spacing:.14em}
+.poster__title>p{margin-bottom:8px}
+.poster__description{font-size:16px;line-height:1.65;margin-bottom:20px}
+.poster__scents{font-size:12px}
+.poster__meta{font-size:9.5px}
+@media(min-width:621px) and (max-width:900px){
+  .poster__copy{max-width:215px}
+  .poster__description{font-size:13.5px}
+  .poster__kicker,.poster__title>p{font-size:9px}
+}
+@media(max-width:620px){
+  .poster__copy{max-width:none}
+  .poster__kicker{font-size:11px;margin-bottom:8px}
+  .poster__description{max-width:34ch;font-size:16px;line-height:1.6}
+  .poster__title>p{font-size:10px}
+  .poster__meta{font-size:8px;letter-spacing:.1em}
+  .poster__scents{display:block;margin-top:12px;font-size:12px}
+  .poster__signature img{height:36px}
+}
+
+/* Cara memesan: 3 langkah, gaya teks sederhana */
+.howto{max-width:1190px}
+.howto>.eyebrow{margin-bottom:28px;font-size:11px}
+.howto .howto__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0 36px;margin:0;padding:0;list-style:none;border-top:0}
+.howto .howto__step{display:flex;gap:18px;padding:26px 0 0;border-top:1px solid rgba(37,72,58,.22)}
+.howto .howto__step>.howto__num{flex:none;min-width:36px;color:var(--forest);font-family:var(--serif);font-size:26px;font-weight:400;line-height:1.1;letter-spacing:0}
+.howto .howto__step h3{margin:2px 0 8px;font-family:var(--serif);font-size:24px;font-weight:500;letter-spacing:-.03em;color:var(--ink)}
+.howto .howto__step p{max-width:300px;margin:0;color:#59685f;font-size:14px;line-height:1.7}
+.howto .howto__step p b{color:var(--forest-deep)}
+@media(max-width:900px){.howto .howto__steps{grid-template-columns:1fr;gap:0}.howto .howto__step{padding:20px 0}.howto .howto__step p{max-width:none}}
+@media(max-width:620px){.howto .howto__step>.howto__num{font-size:24px;min-width:32px}.howto .howto__step h3{font-size:22px}}
+
+/* Penutup: teks dan tombol lebih besar */
+.closing-cta .eyebrow{font-size:12px;letter-spacing:.2em}
+.closing-cta h2{font-size:clamp(50px,6.8vw,96px)}
+.button--lg{min-height:54px;padding:0 28px;gap:22px;font-size:13px;letter-spacing:.015em}
+.button--lg span{font-size:19px}
+.closing-cta .button--lg{margin-top:30px}
+@media(max-width:620px){.closing-cta h2{font-size:clamp(44px,12.5vw,58px)}.button--lg{min-height:52px;padding:0 26px;font-size:13px}}
+
+/* Judul penutup: tidak boleh terpotong di lebar layar apa pun */
+.closing-cta{padding-left:18px;padding-right:18px}
+.closing-cta h2{max-width:100%;font-size:clamp(38px,8.2vw,88px);line-height:1.02}
+@media(max-width:620px){.closing-cta h2{font-size:clamp(38px,11.5vw,54px)}}
+
+/* Navbar menempel di atas saat scroll */
+.site-header{position:sticky;top:0;z-index:30;transition:box-shadow .3s}
+.site-header.is-stuck{box-shadow:0 8px 28px rgba(35,71,58,.1)}
+@media(min-width:901px) and (min-height:700px){.ritual{padding-top:104px}}
+
+/* ===== Perapian tampilan tablet & HP ===== */
+/* Tablet: kartu produk selebar penuh, foto di kiri dan info di kanan */
+@media(max-width:900px){
+  .product-list{grid-template-columns:1fr}
+  .product-card{grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);grid-template-rows:auto}
+  .product-card__photo{height:auto;min-height:340px}
+}
+/* HP: foto produk utuh (rasio 4:5), tidak terpotong */
+@media(max-width:620px){
+  .product-card{grid-template-columns:1fr;grid-template-rows:auto auto}
+  .product-card__photo{height:auto;min-height:0;aspect-ratio:4/5}
+  .poster__signature{display:none}
+  .hero--poster{grid-template-rows:28px auto auto auto}
+  .hero--poster{grid-template-areas:"meta" "copy" "art" "title"}
+  .poster__title{padding-bottom:4px}
+  .slider__stage{margin-bottom:20px}
+  .ritual .slider{gap:18px}
+}
+
+/* Section menumpuk di semua ukuran layar (HP, tablet, desktop).
+   Posisi "top" tiap section dihitung di app.js agar section yang tinggi menempel di bagian bawahnya. */
+.ritual{position:sticky;top:0;z-index:1}
+.stack-panel{position:sticky;top:0;z-index:2;background:#eef3e8;border-radius:26px 26px 0 0;box-shadow:0 -18px 44px rgba(24,57,43,.2)}
+.closing-cta{position:relative;z-index:3;border-radius:26px 26px 0 0;box-shadow:0 -18px 44px rgba(40,26,15,.28)}
+.site-footer{position:relative;z-index:4;background:var(--cream)}
+@media(min-width:901px){.stack-panel,.closing-cta{border-radius:34px 34px 0 0}}
+
+/* Navbar: menu tepat di tengah (logo kiri, aksi kanan) */
+.site-header{display:grid;grid-template-columns:1fr auto 1fr;align-items:center}
+.site-header .brand{justify-self:start}
+.site-header .main-nav{justify-self:center}
+.site-header .header-actions{justify-self:end}
+@media(max-width:620px){.site-header{grid-template-columns:1fr auto}}
+
+/* Slider: kartu bertumpuk, foto berikutnya mengintip dari belakang */
+.slider__stage{margin-right:22px;margin-bottom:26px}
+.slide{position:absolute;inset:0;margin:0;transform-origin:0 0;transition:transform .7s cubic-bezier(.2,.8,.3,1),opacity .5s ease,filter .6s ease;pointer-events:none;opacity:0}
+.slide[data-rel="0"]{z-index:3;opacity:1;transform:none;filter:none;pointer-events:auto}
+.slide[data-rel="1"]{z-index:2;opacity:1;transform:translate(20px,18px) scale(.97);filter:brightness(.78) saturate(.9)}
+.slide.is-leaving{z-index:4;opacity:0!important;transform:translateX(-80px) rotate(-5deg)!important;transition:transform .45s ease-in,opacity .4s ease-in}
+@media(max-width:900px){.slider__stage{margin-right:20px}}
+
+/* "Cara memesan" menutupi section sebelumnya sampai penuh ke atas (HP dan tablet juga) */
+.stack-panel{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:76px;padding-bottom:24px}
+.stack-panel .howto{width:100%;padding-top:20px;padding-bottom:20px}
+@media(min-width:901px){.stack-panel{padding-top:0;padding-bottom:0}.stack-panel .howto{padding-top:0;padding-bottom:0}}
+
+/* "Penutup" menimpa setengah saja (desktop juga), tidak setinggi layar penuh */
+@media(min-width:901px){.closing-cta{min-height:0;padding-top:110px;padding-bottom:120px}}
