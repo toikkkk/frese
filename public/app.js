@@ -216,12 +216,24 @@ form.addEventListener('submit', (event) => {
   payStatus.hidden = true;
   showView('pay');
 });
+/* iPhone/iPad: menu bagikan punya "Simpan ke Foto". Android & desktop: unduhan langsung (menu bagikan Android tidak punya simpan ke galeri). */
+const isApple = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 $('#pay-save').addEventListener('click', async (event) => {
-  if (!qrBlob || !navigator.canShare) return; /* tanpa menu bagikan: pakai unduhan biasa */
-  const file = new File([qrBlob], 'qris-frese.png', { type: 'image/png' });
-  if (!navigator.canShare({ files: [file] })) return;
   event.preventDefault();
-  try { await navigator.share({ files: [file], title: 'QRIS FRESÈ' }); } catch { /* dibatalkan pengguna */ }
+  if (!qrBlob) return;
+  const file = new File([qrBlob], 'qris-frese.png', { type: 'image/png' });
+  if (isApple && navigator.canShare?.({ files: [file] })) {
+    try { await navigator.share({ files: [file], title: 'QRIS FRESÈ' }); } catch { /* dibatalkan pengguna */ }
+    return;
+  }
+  const url = URL.createObjectURL(qrBlob);
+  const link = document.createElement('a');
+  link.href = url; link.download = 'qris-frese.png';
+  document.body.append(link); link.click(); link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 4000);
+  payStatus.hidden = false;
+  payStatus.removeAttribute('data-state');
+  payStatus.textContent = 'QR tersimpan. Cari di Galeri/Foto pada album "Download" (atau aplikasi File > Download).';
 });
 $('#pay-back').addEventListener('click', () => showView('form'));
 $('#pay-copy').addEventListener('click', async (event) => {
