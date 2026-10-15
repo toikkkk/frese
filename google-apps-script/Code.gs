@@ -18,8 +18,7 @@ function doPost(e) {
     lock.waitLock(10000);
     try {
       if (sheet.getLastRow() === 0) {
-        const proofUrl = saveProof_(order, properties);
-      sheet.appendRow(['Waktu', 'ID Pesanan', 'Nama Pemesan', 'Produk', 'Jumlah Item', 'Total (IDR)', 'Metode Pembayaran', 'Status Pembayaran', 'Bukti Pembayaran']);
+        sheet.appendRow(['Waktu', 'ID Pesanan', 'Nama Pemesan', 'Produk', 'Jumlah Item', 'Total (IDR)', 'Metode Pembayaran', 'Status Pembayaran', 'Bukti Pembayaran']);
         sheet.setFrozenRows(1);
         sheet.getRange(1, 1, 1, 9).setFontWeight('bold');
       }
