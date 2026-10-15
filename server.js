@@ -105,4 +105,4 @@ const server = http.createServer(async (req, res) => {
     return res.end(content);
   } catch { return send(res, 404, 'Not found', 'text/plain; charset=utf-8'); }
 });
-server.listen(port, '0.0.0.0', () => console.log(`FRESE listening on 0.0.0.0:${port}`));
+server.listen(port, '0.0.0.0', () => console.log(`FRESÈ listening on 0.0.0.0:${port}`));

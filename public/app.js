@@ -16,6 +16,7 @@ const cart = loadCart();
 const pick = { jasmine: 1, coffee: 1 };
 let session = null; /* { mode: 'cart' | 'direct', items: { id: qty } } */
 let confirming = false;
+let qrBlob = null; /* PNG QRIS untuk menu bagikan */
 let proof = null; /* { mimeType, data (base64), blob } */
 
 const cartDialog = $('#cart-dialog');
@@ -86,11 +87,17 @@ function renderQr(amount) {
       if (qr.isDark(row, col)) ctx.fillRect((col + margin) * scale, (row + margin) * scale, scale, scale);
     }
   }
-  canvas.setAttribute('role', 'img');
-  canvas.setAttribute('aria-label', `QRIS pembayaran ${money.format(amount)}`);
-  frame.append(canvas);
-  save.href = canvas.toDataURL('image/png');
+  /* Ditampilkan sebagai gambar biasa agar bisa ditekan lama lalu disimpan ke galeri */
+  const dataUrl = canvas.toDataURL('image/png');
+  const img = new Image();
+  img.src = dataUrl;
+  img.alt = `QRIS pembayaran ${money.format(amount)}`;
+  img.width = 520; img.height = 520;
+  frame.append(img);
+  save.href = dataUrl;
   save.hidden = false;
+  qrBlob = null;
+  canvas.toBlob((blob) => { qrBlob = blob; }, 'image/png');
   return true;
 }
 
@@ -209,6 +216,13 @@ form.addEventListener('submit', (event) => {
   payStatus.hidden = true;
   showView('pay');
 });
+$('#pay-save').addEventListener('click', async (event) => {
+  if (!qrBlob || !navigator.canShare) return; /* tanpa menu bagikan: pakai unduhan biasa */
+  const file = new File([qrBlob], 'qris-frese.png', { type: 'image/png' });
+  if (!navigator.canShare({ files: [file] })) return;
+  event.preventDefault();
+  try { await navigator.share({ files: [file], title: 'QRIS FRESÈ' }); } catch { /* dibatalkan pengguna */ }
+});
 $('#pay-back').addEventListener('click', () => showView('form'));
 $('#pay-copy').addEventListener('click', async (event) => {
   const button = event.currentTarget;
@@ -277,7 +291,7 @@ $('#proof-change').addEventListener('click', () => proofInput.click());
 
 function makeWhatsAppUrl(order, orderId) {
   const lines = [
-    'Halo FRESE, saya sudah melakukan pembayaran untuk pesanan berikut:',
+    'Halo FRESÈ, saya sudah melakukan pembayaran untuk pesanan berikut:',
     '',
     ...(orderId ? [`ID Pesanan: ${orderId}`] : []),
     `Nama: ${order.customer.name}`,
@@ -317,7 +331,7 @@ $('#pay-confirm').addEventListener('click', async () => {
   const tab = window.open('about:blank', '_blank');
   if (tab) {
     try {
-      tab.document.title = 'Menyiapkan pesanan FRESE';
+      tab.document.title = 'Menyiapkan pesanan FRESÈ';
       tab.document.body.innerHTML = '<p style="font:16px sans-serif;padding:32px;color:#2E7D6A">Menyiapkan pesan WhatsApp Anda…</p>';
     } catch { /* tujuan tetap diatur setelah pencatatan */ }
   }
@@ -348,7 +362,7 @@ $('#pay-confirm').addEventListener('click', async () => {
   idLine.hidden = !orderId;
   idLine.textContent = orderId ? `ID Pesanan: ${orderId}` : '';
   const shareFile = new File([proof.blob], `bukti-${orderId || 'frese'}.jpg`, { type: 'image/jpeg' });
-  const shareData = { files: [shareFile], text: `Bukti pembayaran FRESE${orderId ? ` ${orderId}` : ''} a.n. ${order.customer.name}` };
+  const shareData = { files: [shareFile], text: `Bukti pembayaran FRESÈ${orderId ? ` ${orderId}` : ''} a.n. ${order.customer.name}` };
   const shareButton = $('#wa-share');
   shareButton.hidden = !(navigator.canShare && navigator.canShare(shareData));
   shareButton.onclick = () => navigator.share(shareData).catch(() => {});

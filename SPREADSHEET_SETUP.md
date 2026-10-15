@@ -1,6 +1,6 @@
 # Menghubungkan pencatatan pesanan ke Google Sheets
 
-Website mencatat pesanan ke Google Sheets **setelah pelanggan menekan "Saya sudah bayar"** pada langkah pembayaran QRIS. Satu baris berisi: waktu, ID pesanan, nama pemesan, produk, jumlah item, total, metode pembayaran, status pembayaran (`Sudah dibayar (konfirmasi pelanggan)`), dan tautan **bukti pembayaran** (foto disimpan di folder Google Drive `FRESE Bukti Bayar`; opsional isi Script Property `PROOF_FOLDER_ID` untuk memakai folder sendiri). Jika spreadsheet belum terhubung, pelanggan tetap diarahkan ke WhatsApp dengan detail pesanan lengkap.
+Website mencatat pesanan ke Google Sheets **setelah pelanggan menekan "Saya sudah bayar"** pada langkah pembayaran QRIS. Satu baris berisi: waktu, ID pesanan, nama pemesan, produk, jumlah item, total, metode pembayaran, status pembayaran (`Sudah dibayar (konfirmasi pelanggan)`), dan tautan **bukti pembayaran** (foto disimpan di folder Google Drive `FRESÈ Bukti Bayar`; opsional isi Script Property `PROOF_FOLDER_ID` untuk memakai folder sendiri). Jika spreadsheet belum terhubung, pelanggan tetap diarahkan ke WhatsApp dengan detail pesanan lengkap.
 
 > Jika tab `Pesanan` sudah berisi header lama, hapus tab itu atau kosongkan isinya agar header baru (9 kolom) dibuat otomatis.
 

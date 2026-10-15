@@ -49,8 +49,8 @@ function saveProof_(order, properties) {
     const folderId = properties.getProperty('PROOF_FOLDER_ID');
     if (folderId) folder = DriveApp.getFolderById(folderId);
     else {
-      const found = DriveApp.getFoldersByName('FRESE Bukti Bayar');
-      folder = found.hasNext() ? found.next() : DriveApp.createFolder('FRESE Bukti Bayar');
+      const found = DriveApp.getFoldersByName('FRESÈ Bukti Bayar');
+      folder = found.hasNext() ? found.next() : DriveApp.createFolder('FRESÈ Bukti Bayar');
     }
     const blob = Utilities.newBlob(Utilities.base64Decode(order.proof.data), 'image/jpeg', order.orderId + '.jpg');
     return folder.createFile(blob).getUrl();

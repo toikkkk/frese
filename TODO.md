@@ -1,8 +1,8 @@
-# TODO FRESE
+# TODO FRESÈ
 
 ## Katalog produk dan identitas brand
-- [x] Halaman utama responsif berbahasa Indonesia menampilkan identitas FRESE dengan palet Forest Green `#2E7D6A`, Sage Green `#A7C4B0`, Mint Green `#DCEDE1`, Soft Cream `#FAF9F4`, dan Coffee Brown `#6B4F3A`.
-- [x] Hero desktop meniru komposisi poster editorial referensi: latar krem lapang, ilustrasi utama di tengah, keterangan kecil di kiri, headline besar di bagian bawah, serta teks vertikal dan ajakan di kanan; konten tetap terbaca dan sesuai dengan identitas FRESE.
+- [x] Halaman utama responsif berbahasa Indonesia menampilkan identitas FRESÈ dengan palet Forest Green `#2E7D6A`, Sage Green `#A7C4B0`, Mint Green `#DCEDE1`, Soft Cream `#FAF9F4`, dan Coffee Brown `#6B4F3A`.
+- [x] Hero desktop meniru komposisi poster editorial referensi: latar krem lapang, ilustrasi utama di tengah, keterangan kecil di kiri, headline besar di bagian bawah, serta teks vertikal dan ajakan di kanan; konten tetap terbaca dan sesuai dengan identitas FRESÈ.
 - [x] Pada layar ponsel, bagian home tersusun rapi tanpa tumpang-tindih: judul, foto, informasi, dan tombol ajakan tampil berurutan; kartu produk menampilkan foto dan deskripsi dengan ukuran teks yang mudah dibaca.
 - [x] Katalog menampilkan dua varian dengan foto produk terlampir: Jasmine seharga Rp17.000 dan Kopi seharga Rp20.000.
 - [x] Detail Jasmine menyampaikan aroma bunga melati yang lembut, floral, menenangkan, memberi kesan ruangan segar, nyaman, dan bersih, menciptakan suasana rileks serta menjaga sepatu tetap harum lebih lama.

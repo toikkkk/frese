@@ -42,7 +42,7 @@
     scrollTrigger: { trigger, start, once: true },
   });
 
-  /* ---------- Preloader: logo FRESE tersusun huruf demi huruf ---------- */
+  /* ---------- Preloader: logo FRESÈ tersusun huruf demi huruf ---------- */
   function runPreloader(hero) {
     window.scrollTo(0, 0);
     const preloader = q('#preloader');

@@ -331,3 +331,6 @@ html.is-loading{overflow:hidden}
 
 /* "Penutup" menimpa setengah saja (desktop juga), tidak setinggi layar penuh */
 @media(min-width:901px){.closing-cta{min-height:0;padding-top:110px;padding-bottom:120px}}
+
+.pay__qr-frame img{display:block;width:100%;height:auto;-webkit-touch-callout:default;user-select:auto}
+.pay__hint{max-width:34ch;margin:0;color:var(--muted);font-size:12px;line-height:1.6;text-align:center}
