@@ -334,3 +334,9 @@ html.is-loading{overflow:hidden}
 
 .pay__qr-frame img{display:block;width:100%;height:auto;-webkit-touch-callout:default;user-select:auto}
 .pay__hint{max-width:34ch;margin:0;color:var(--muted);font-size:12px;line-height:1.6;text-align:center}
+
+/* Judul hero lebih panjang: ukuran disesuaikan agar utuh */
+.poster__title h1{font-size:clamp(28px,3.9vw,56px);line-height:1.02;letter-spacing:-.05em}
+@media(min-width:621px) and (max-width:900px){.poster__title h1{font-size:clamp(26px,4vw,36px)}}
+@media(max-width:620px){.poster__title h1{font-size:clamp(30px,9vw,40px)}}
+@media(max-width:620px){.poster__title h1{font-size:clamp(24px,7.3vw,34px);white-space:nowrap}}
